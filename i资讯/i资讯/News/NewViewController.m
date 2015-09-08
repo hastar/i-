@@ -9,8 +9,9 @@
 #import "NewViewController.h"
 #import "NewModel.h"
 #import "NewsTableViewCell.h"
+#import "NewsDetailViewController.h"
 
-#define kNewsUrl @"http://wap.25pp.com/news/ajax_list/133/20/"
+#define kNewsUrl @"http://wap.25pp.com/news/ajax_list/133/10/"
 
 @interface NewViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -20,6 +21,9 @@
 @property (nonatomic, strong) UITableView *tableView;
 //数据源数组，所有的数据都放在这个数组中
 @property (nonatomic, strong) NSMutableArray *dataArray;
+
+//是否正在加载数据
+@property (nonatomic, assign) BOOL isLoading;
 
 @end
 
@@ -57,7 +61,11 @@
     NSString *urlString = [NSString stringWithFormat:@"%@%lu", kNewsUrl, index];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    self.isLoading = YES;
+    __block typeof(self) weakSelf = self;
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
         if (data != nil) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSDictionary *dataDic = dic[@"data"];
@@ -65,33 +73,41 @@
             for (NSDictionary *modeDic in array) {
                 NewModel *model = [[NewModel alloc] init];
                 [model setValuesForKeysWithDictionary:modeDic];
-                [self.dataArray addObject:model];
+                [weakSelf.dataArray addObject:model];
             }
-            self.index++;
-            [self.tableView reloadData];
+            weakSelf.index++;
+            [weakSelf.tableView reloadData];
         }
+        
+        weakSelf.isLoading = NO;
     }];
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //设置其实页码
     self.index = 1;
+    self.isLoading = NO;
     self.view.backgroundColor = [UIColor lightGrayColor];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.tableView];
+    
+    //加载数据
+    [self loadNewDataWithIndex:self.index];
     [self loadNewDataWithIndex:self.index];
     
 }
 
 
 #pragma mark - tableView代理方法
-#pragma mark - 返回有多少个item
+#pragma mark - 返回每个section有多少个item
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
 }
 
+#pragma mark 有多少个section(每个条新闻当作一个section，有利于间隔的显示)
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.dataArray.count;
@@ -113,31 +129,55 @@
     return cell;
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+
+#pragma mark 响应点击cell
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NewModel *model = self.dataArray[indexPath.section];
+    
+    NewsDetailViewController *newDetailVc = [[NewsDetailViewController alloc] init];
+    newDetailVc.news_url = model.news_url;
+    
+    [self.navigationController pushViewController:newDetailVc animated:YES];
+    
+}
+
+
+
+#pragma mark 当滚动到一定位置，就加载数据
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGPoint point = scrollView.contentOffset;
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-    NSLog(@"%ld", indexPath.row);
-    if (indexPath.row > (self.dataArray.count - 18)) {
+    NSLog(@"%ld", indexPath.section);
+    
+    if (indexPath.section > (self.dataArray.count - 18) && !self.isLoading) {
         [self loadNewDataWithIndex:self.index];
     }
     
 }
 
+#pragma mark 设置cell的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 150;
+    CGFloat rate = 160.0/290.0;
+    CGFloat width = [UIScreen mainScreen].bounds.size.width/3;
+    CGFloat height = width * rate;
+    return height + 20;
 }
 
+#pragma mark 设置分区头高度(和分区尾一起够成cell间隔)
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 5.0;
 }
 
+#pragma mark 设置分区尾高度(和分区头一起够成cell间隔)
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 2.0;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -146,6 +186,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
 }
 /*
 #pragma mark - Navigation

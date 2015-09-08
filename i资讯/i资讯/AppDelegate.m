@@ -22,10 +22,12 @@
 
     IOSViewController *IosVC = [[IOSViewController alloc] init];
     UINavigationController *IosNav = [[UINavigationController alloc] initWithRootViewController:IosVC];
+    IosNav.navigationBar.translucent = NO;
     IosVC.title = @"技术";
     
     NewViewController *newVc = [[NewViewController alloc] init];
     UINavigationController *newNav = [[UINavigationController alloc] initWithRootViewController:newVc];
+    newNav.navigationBar.translucent = NO;
     newVc.title = @"新闻";
     
     PictureViewController *pictureVc = [[PictureViewController alloc] init];

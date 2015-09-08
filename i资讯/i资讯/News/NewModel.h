@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *desc;
+@property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *short_title;
 @property (nonatomic, copy) NSString *inputtime;
 @property (nonatomic, copy) NSString *news_url;

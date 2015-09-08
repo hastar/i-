@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *titeImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeight;
 
 @end
 
@@ -25,13 +27,14 @@
     _model = model;
     
     self.titleLabel.text = self.model.short_title;
-    if (self.model.desc.length > 55) {
-        self.descLabel.text = [self.model.desc substringToIndex:50];
-    }
-    else
-    {
-        self.descLabel.text = self.model.desc;
-    }
+    self.descLabel.text = self.model.title;
+//    if (self.model.desc.length > 55) {
+//        self.descLabel.text = [self.model.desc substringToIndex:50];
+//    }
+//    else
+//    {
+//        self.descLabel.text = self.model.desc;
+//    }
     
     self.timeLabel.text = self.model.inputtime;
 
@@ -40,9 +43,23 @@
 }
 
 - (void)awakeFromNib {
-    // Initialization code
-//    self.contentView.backgroundColor = [UIColor lightGrayColor];
+
+    //cell圆角
+    self.backgroundColor = [UIColor clearColor];
+    self.contentView.backgroundColor = [UIColor whiteColor];
+    self.contentView.layer.cornerRadius = 5;
+    self.contentView.layer.masksToBounds = YES;
+    self.contentView.clipsToBounds = YES;
+    
+    //设置图片的填充模式
     self.titeImageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    //设置图片的大小
+    CGFloat rate = 160.0/290.0;
+    CGFloat width = [UIScreen mainScreen].bounds.size.width/3;
+    CGFloat height = width * rate;
+    self.imageViewWidth.constant = width;
+    self.imageViewHeight.constant = height;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
