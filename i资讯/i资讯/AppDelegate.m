@@ -45,7 +45,7 @@
     [self.window makeKeyAndVisible];
     
     
-    
+    NSLog(@"%@", NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES));
     
     
     return YES;

@@ -10,7 +10,11 @@
 
 @interface IOSDetailViewController () <UIWebViewDelegate>
 
+//用来显示网页内容
 @property (nonatomic, strong) UIWebView *webView;
+
+//是否已经加载
+@property (nonatomic, assign) BOOL isLoaded;
 
 @end
 
@@ -22,8 +26,6 @@
     if (_webView == nil) {
         
         CGRect frame = [UIScreen mainScreen].bounds;
-        frame.origin.y -= 80;
-        frame.size.height += 80;
         
         _webView = [[UIWebView alloc] initWithFrame:frame];
         _webView.delegate = self;
@@ -36,6 +38,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.isLoaded = NO;
     
     //添加webView
     [self.view addSubview:self.webView];
@@ -53,10 +57,26 @@
     self.navigationController.navigationBarHidden = NO;
     self.tabBarController.tabBar.hidden = YES;
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSLog(@"%@", request.URL.absoluteString);
+    if (!self.isLoaded) {
+        self.isLoaded = YES;
+        return YES;
+    }
+    
+    return NO;
 }
+
+
+
+
+
+
+
+
+
 
 /*
 #pragma mark - Navigation

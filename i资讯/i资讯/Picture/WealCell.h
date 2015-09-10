@@ -1,0 +1,14 @@
+//
+//  WealCell.h
+//  i资讯
+//
+//  Created by lanou on 15/9/9.
+//  Copyright (c) 2015年 hastar. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface WealCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *WealImageView;
+
+@end

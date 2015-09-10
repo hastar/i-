@@ -8,6 +8,7 @@
 
 #import "IOSViewController.h"
 #import "IOSModel.h"
+#import "IOSDetailViewController.h"
 #import "NewsDetailViewController.h"
 
 #define kTechUrl @"http://gank.avosapps.com/api/day/"
@@ -108,6 +109,7 @@
                 return [str2 compare:str1];
             }];
             [weakSelf.tableView reloadData];
+            self.isLoading = NO;
         }
     }];
 }
@@ -136,6 +138,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 #pragma mark - tableView代理方法
@@ -187,8 +190,8 @@
     CGPoint point = scrollView.contentOffset;
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
     
-    if (indexPath.section > self.dataArray.count - 5) {
-        [self loadDataWithPreday:self.preDay+1];
+    if (indexPath.section > self.dataArray.count - 5 && !self.isLoading) {
+        [self loadPageData];
     }
 }
 
@@ -197,13 +200,25 @@
     NSArray *array = self.dataArray[indexPath.section][@"ios"];
     IOSModel *model = array[indexPath.row];
     
-    NewsDetailViewController *detailVC = [[NewsDetailViewController alloc] init];
-    detailVC.news_url = model.url;
     
-    [self.navigationController pushViewController:detailVC animated:YES];
+    
+    IOSDetailViewController *detailVc = [[IOSDetailViewController alloc] init];
+    detailVc.news_url = model.url;
+    
+    [self.navigationController pushViewController:detailVc animated:YES];
+    
 }
 
 
+-(BOOL)shouldAutomaticallyForwardAppearanceMethods
+{
+    return NO;
+}
+
+-(void)viewDidLayoutSubviews
+{
+    self.tableView.frame = self.view.bounds;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

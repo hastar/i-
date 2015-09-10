@@ -37,6 +37,10 @@
 		3FAECA0E1B9E776D00065C1C /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAECA0D1B9E776D00065C1C /* NewsDetailViewController.m */; };
 		3FAECA111B9ED3B500065C1C /* IOSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAECA101B9ED3B500065C1C /* IOSModel.m */; };
 		3FAECA151B9EE7C300065C1C /* IOSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAECA141B9EE7C300065C1C /* IOSDetailViewController.m */; };
+		3FDBE21B1B9FCBE00056F7F6 /* PictureFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDBE21A1B9FCBE00056F7F6 /* PictureFlowLayout.m */; };
+		3FDBE21E1B9FDF360056F7F6 /* WealModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDBE21D1B9FDF360056F7F6 /* WealModel.m */; };
+		3FDBE2251BA00B7B0056F7F6 /* WealCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDBE2231BA00B7B0056F7F6 /* WealCell.m */; };
+		3FDBE2261BA00B7B0056F7F6 /* WealCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FDBE2241BA00B7B0056F7F6 /* WealCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +113,13 @@
 		3FAECA101B9ED3B500065C1C /* IOSModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOSModel.m; sourceTree = "<group>"; };
 		3FAECA131B9EE7C300065C1C /* IOSDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSDetailViewController.h; sourceTree = "<group>"; };
 		3FAECA141B9EE7C300065C1C /* IOSDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOSDetailViewController.m; sourceTree = "<group>"; };
+		3FDBE2191B9FCBE00056F7F6 /* PictureFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureFlowLayout.h; sourceTree = "<group>"; };
+		3FDBE21A1B9FCBE00056F7F6 /* PictureFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureFlowLayout.m; sourceTree = "<group>"; };
+		3FDBE21C1B9FDF360056F7F6 /* WealModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WealModel.h; sourceTree = "<group>"; };
+		3FDBE21D1B9FDF360056F7F6 /* WealModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WealModel.m; sourceTree = "<group>"; };
+		3FDBE2221BA00B7B0056F7F6 /* WealCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WealCell.h; sourceTree = "<group>"; };
+		3FDBE2231BA00B7B0056F7F6 /* WealCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WealCell.m; sourceTree = "<group>"; };
+		3FDBE2241BA00B7B0056F7F6 /* WealCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WealCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +229,13 @@
 			children = (
 				3F28D9DE1B9DB60A00B95680 /* PictureViewController.h */,
 				3F28D9DF1B9DB60A00B95680 /* PictureViewController.m */,
+				3FDBE2191B9FCBE00056F7F6 /* PictureFlowLayout.h */,
+				3FDBE21A1B9FCBE00056F7F6 /* PictureFlowLayout.m */,
+				3FDBE21C1B9FDF360056F7F6 /* WealModel.h */,
+				3FDBE21D1B9FDF360056F7F6 /* WealModel.m */,
+				3FDBE2221BA00B7B0056F7F6 /* WealCell.h */,
+				3FDBE2231BA00B7B0056F7F6 /* WealCell.m */,
+				3FDBE2241BA00B7B0056F7F6 /* WealCell.xib */,
 			);
 			path = Picture;
 			sourceTree = "<group>";
@@ -373,6 +391,7 @@
 				3F28D9BA1B9DB52C00B95680 /* Main.storyboard in Resources */,
 				3F28D9BF1B9DB52C00B95680 /* LaunchScreen.xib in Resources */,
 				3F28D9E81B9DC21900B95680 /* NewsTableViewCell.xib in Resources */,
+				3FDBE2261BA00B7B0056F7F6 /* WealCell.xib in Resources */,
 				3F28D9BC1B9DB52C00B95680 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,7 +412,9 @@
 			files = (
 				3FAECA151B9EE7C300065C1C /* IOSDetailViewController.m in Sources */,
 				3F28DA411B9DC5BF00B95680 /* UIImage+GIF.m in Sources */,
+				3FDBE2251BA00B7B0056F7F6 /* WealCell.m in Sources */,
 				3F28DA3A1B9DC5BF00B95680 /* SDWebImageCompat.m in Sources */,
+				3FDBE21E1B9FDF360056F7F6 /* WealModel.m in Sources */,
 				3F28DA401B9DC5BF00B95680 /* UIButton+WebCache.m in Sources */,
 				3F28DA421B9DC5BF00B95680 /* UIImage+MultiFormat.m in Sources */,
 				3FAECA0E1B9E776D00065C1C /* NewsDetailViewController.m in Sources */,
@@ -401,6 +422,7 @@
 				3F28DA3F1B9DC5BF00B95680 /* SDWebImagePrefetcher.m in Sources */,
 				3F28D9DA1B9DB5F200B95680 /* IOSViewController.m in Sources */,
 				3F28D9E01B9DB60A00B95680 /* PictureViewController.m in Sources */,
+				3FDBE21B1B9FCBE00056F7F6 /* PictureFlowLayout.m in Sources */,
 				3FAECA111B9ED3B500065C1C /* IOSModel.m in Sources */,
 				3F28D9B71B9DB52C00B95680 /* ViewController.m in Sources */,
 				3F28DA3D1B9DC5BF00B95680 /* SDWebImageDownloaderOperation.m in Sources */,
