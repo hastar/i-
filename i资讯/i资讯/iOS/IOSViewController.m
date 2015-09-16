@@ -5,7 +5,7 @@
 //  Created by lanou on 15/9/7.
 //  Copyright (c) 2015年 hastar. All rights reserved.
 //
-
+#import "AppDelegate.h"
 #import "IOSViewController.h"
 #import "IOSModel.h"
 #import "IOSDetailViewController.h"
@@ -40,6 +40,8 @@
     [df setDateFormat:@"yyyy/MM/dd"];
     NSString *dateString = [df stringFromDate:date];
     
+    
+    
     return dateString;
 }
 
@@ -55,12 +57,11 @@
 #pragma mark tableView的懒加载
 - (UITableView *)tableView{
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-//        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         
-        
+        _tableView.showsVerticalScrollIndicator = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
     }
@@ -167,7 +168,6 @@
     cell.textLabel.text = model.desc;
     cell.textLabel.numberOfLines = 0;
     cell.textLabel.font = [UIFont systemFontOfSize:13];
-//    cell.contentView.backgroundColor = [UIColor colorWithWhite:0.98 alpha:1];
     
     return cell;
 }
@@ -201,11 +201,19 @@
     IOSModel *model = array[indexPath.row];
     
     
-    
+
     IOSDetailViewController *detailVc = [[IOSDetailViewController alloc] init];
     detailVc.news_url = model.url;
     
-    [self.navigationController pushViewController:detailVc animated:YES];
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UINavigationController *rootNav = (UINavigationController *)appDelegate.window.rootViewController;
+    [rootNav.topViewController.navigationController pushViewController:detailVc animated:YES];
+    
+    
+//    
+//    UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:detailVc];
+//
+//    [self presentViewController:detailNav animated:YES completion:nil];
     
 }
 

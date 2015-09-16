@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 hastar. All rights reserved.
 //
 
+#import "AppDelegate.h"
 #import "NewViewController.h"
 #import "NewModel.h"
 #import "NewsTableViewCell.h"
@@ -46,6 +47,8 @@
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        
+        _tableView.showsVerticalScrollIndicator = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         UINib *nib = [UINib nibWithNibName:@"NewsTableViewCell" bundle:nil];
         [_tableView registerNib:nib forCellReuseIdentifier:@"cellID"];
@@ -121,6 +124,8 @@
     if (cell == nil) {
         cell = [[NewsTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:strID];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     
     NewModel *model = self.dataArray[indexPath.section];
     
@@ -137,8 +142,11 @@
     
     NewsDetailViewController *newDetailVc = [[NewsDetailViewController alloc] init];
     newDetailVc.news_url = model.news_url;
-    
-    [self.navigationController pushViewController:newDetailVc animated:YES];
+ 
+ 
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UINavigationController *rootNav = (UINavigationController *)appDelegate.window.rootViewController;
+    [rootNav.topViewController.navigationController pushViewController:newDetailVc animated:YES];
     
 }
 

@@ -54,6 +54,7 @@
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         
+        _collectionView.showsVerticalScrollIndicator = NO;
         UINib *nib = [UINib nibWithNibName:@"WealCell" bundle:nil];
         [_collectionView registerNib:nib forCellWithReuseIdentifier:@"CollectionCell"];
     }

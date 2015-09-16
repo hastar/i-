@@ -10,6 +10,7 @@
 #import "IOSViewController.h"
 #import "NewViewController.h"
 #import "PictureViewController.h"
+#import "PageViewController.h"
 
 @interface AppDelegate ()
 
@@ -33,15 +34,18 @@
     PictureViewController *pictureVc = [[PictureViewController alloc] init];
     UINavigationController *pictureNav = [[UINavigationController alloc] initWithRootViewController:pictureVc];
     pictureVc.title = @"福利";
+
+    
+    PageViewController *pageVC = [[PageViewController alloc] initWithTitles:@[@"资 讯",@"技 术", @"福 利"] ViewControllers:@[newNav, IosNav, pictureNav]];
+    UINavigationController *pageNav = [[UINavigationController alloc] initWithRootViewController:pageVC];
+    pageVC.navigationController.navigationBar.translucent = NO;
+
+    
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:110.0/256 green:58.0/256 blue:188.0/256 alpha:1.0]];
     
     
-    
-    UITabBarController *tabbar = [[UITabBarController alloc] init];
-    [tabbar addChildViewController:pictureNav];
-    [tabbar addChildViewController:newNav];
-    [tabbar addChildViewController:IosNav];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = tabbar;
+    self.window.rootViewController = pageNav;
     [self.window makeKeyAndVisible];
     
     
