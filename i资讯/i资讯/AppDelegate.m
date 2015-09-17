@@ -40,8 +40,7 @@
     UINavigationController *pageNav = [[UINavigationController alloc] initWithRootViewController:pageVC];
     pageVC.navigationController.navigationBar.translucent = NO;
 
-    
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:110.0/256 green:58.0/256 blue:188.0/256 alpha:1.0]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroup"]]];
     
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

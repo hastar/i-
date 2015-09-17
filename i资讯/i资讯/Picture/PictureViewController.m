@@ -6,17 +6,21 @@
 //  Copyright (c) 2015年 hastar. All rights reserved.
 //
 
-#import "PictureViewController.h"
-#import "PictureFlowLayout.h"
+#import "AppDelegate.h"
 #import "WealCell.h"
 #import "WealModel.h"
+#import "PictureFlowLayout.h"
 #import "UIImageView+WebCache.h"
+#import "PictureViewController.h"
+#import "PictureDetailViewController.h"
 
 #define kWealUrl @"http://gank.avosapps.com/api/data/%E7%A6%8F%E5%88%A9/5/"
 
 @interface PictureViewController () <UICollectionViewDataSource, PictureFlowLayoutDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+
+//存放所有model对象
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 //当前加载到第几页数据
@@ -50,7 +54,7 @@
         
         CGRect frame = self.view.bounds;
         _collectionView = [[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
-        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         
@@ -113,7 +117,6 @@
     NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(downLoadPageData) object:nil];
     
     if (self.queue.operationCount > 0) {
-        NSLog(@"我是第一个哦哦");
         [operation addDependency:self.queue.operations[self.queue.operationCount-1]];
     }
     
@@ -176,7 +179,6 @@
 #pragma mark 设置item的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSLog(@"布局好乐");
     return self.dataArray.count;
 }
 
@@ -199,8 +201,20 @@
 #pragma mark item点击事件处理
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    [self loadPageData];
-    [self addOneLoading];
+    PictureDetailViewController *detailVC = [[PictureDetailViewController alloc] init];
+    detailVC.dataArray = self.dataArray;
+    detailVC.page = self.page;
+    detailVC.index = indexPath.row;
+    NSLog(@"查看图片详情： %ld", indexPath.row);
+    detailVC.pageBlock = ^(NSInteger page){
+        self.page = page;
+    };
+    
+    
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UINavigationController *rootNav = (UINavigationController *)appDelegate.window.rootViewController;
+    [rootNav.topViewController.navigationController pushViewController:detailVC animated:YES];
+
 }
 
 #pragma mark 滚动到某一程度，继续加载
@@ -215,11 +229,6 @@
         NSLog(@"加载数据");
         
         [self addOneLoading];
-      
-        
-        
-        
-//        [NSThread detachNewThreadSelector:@selector(loadPageData) toTarget:self withObject:nil];
         
     }
 }

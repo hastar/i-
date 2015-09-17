@@ -92,7 +92,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(btnX, btnY, btnWidth, kHeaderHeight - btnY);
         button.tag = kTag + i;
-        button.titleLabel.font = [UIFont fontWithName:@"Verdana-Bold" size:16];
+        button.titleLabel.font = [UIFont fontWithName:@"Verdana-Bold" size:17];
         [button setTitle:self.titles[i] forState:UIControlStateNormal];
         [button setTitleColor:self.normalColor forState:UIControlStateNormal];
         [button setTitleColor:self.selectedColor forState:UIControlStateHighlighted];
@@ -166,15 +166,15 @@
     
     self.btnWidth = kWidth / self.titles.count;
     self.view.backgroundColor = [UIColor whiteColor];
-    [self setTitleBackgroundColor:[UIColor colorWithRed:110.0/256 green:58.0/256 blue:188.0/256 alpha:1.0]];
-    
-    [self setTitleNormalColor:[UIColor lightGrayColor]];
+    [self setTitleBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroup"]]];
+    [self setTitleNormalColor:[UIColor blackColor]];
     [self setTitleSelectedColor:[UIColor whiteColor]];
+    
     
     [self.view addSubview:self.headerView];
     [self.view addSubview:self.scrollView];
     [self.headerView addSubview: self.sliderLabel];
-    self.sliderLabel.backgroundColor = [UIColor redColor];
+    self.sliderLabel.backgroundColor = [UIColor whiteColor];
     
     
     [self initButtonAndSubviews];    
