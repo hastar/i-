@@ -203,7 +203,7 @@
     
 
     IOSDetailViewController *detailVc = [[IOSDetailViewController alloc] init];
-    detailVc.news_url = model.url;
+    detailVc.model = model;
     
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     UINavigationController *rootNav = (UINavigationController *)appDelegate.window.rootViewController;

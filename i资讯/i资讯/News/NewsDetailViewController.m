@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import <WebKit/WebKit.h>
+#import "UMSocial.h"
+#import "UIImageView+WebCache.h"
 #import "NewsDetailViewController.h"
 
 @interface NewsDetailViewController () <UIWebViewDelegate>
@@ -21,6 +23,10 @@
 
 //加载进度条
 @property (nonatomic, strong) UIProgressView *progressView;
+
+
+//标题图片，不显示，用于分享
+@property (nonatomic, strong) UIImageView *titleImage;
 
 @end
 
@@ -90,11 +96,15 @@
     self.progressView.progress = 0.0;
     
     //加载webView数据
-    NSURL *url = [NSURL URLWithString:self.news_url];
+    NSURL *url = [NSURL URLWithString:self.model.news_url];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.wkView loadRequest:request];
     [self.wkView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
     
+    
+    //加载标题图片，用于分享
+    self.titleImage = [[UIImageView alloc] init];
+    [self.titleImage sd_setImageWithURL:[NSURL URLWithString:self.model.title_pic]];
 }
 
 
@@ -129,6 +139,14 @@
 - (void)share:(id)sender
 {
     NSLog(@"分享");
+    
+    NSString *shareString = [NSString stringWithFormat:@"%@----分享来自i客之家 iPhone客户端\n%@", self.model.title,self.model.news_url];
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:@"55fa1fa867e58e81eb0061cb"
+                                      shareText:shareString
+                                     shareImage:self.titleImage.image
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToTencent, UMShareToDouban, UMShareToRenren, nil]
+                                       delegate:nil];
 }
 
 
@@ -144,14 +162,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

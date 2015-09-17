@@ -7,6 +7,7 @@
 //
 
 #import "WealModel.h"
+#import "UMSocial.h"
 #import "UIImageView+WebCache.h"
 #import "PictureDetailViewController.h"
 
@@ -97,6 +98,14 @@
 - (void)share:(id)sender
 {
     NSLog(@"分享");
+    WealModel *model = self.dataArray[self.index];
+    NSString *shareString = [NSString stringWithFormat:@"%@\n%@", @"漂亮清纯萌妹子----分享来自i客之家 iPhone客户端",model.url];
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:@"55fa1fa867e58e81eb0061cb"
+                                      shareText:shareString
+                                     shareImage:self.curImageView.image
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToTencent, UMShareToDouban, UMShareToRenren, nil]
+                                       delegate:nil];
 }
 
 #pragma mark 系统ViewDidLoad

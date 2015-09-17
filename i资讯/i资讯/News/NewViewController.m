@@ -141,7 +141,7 @@
     NewModel *model = self.dataArray[indexPath.section];
     
     NewsDetailViewController *newDetailVc = [[NewsDetailViewController alloc] init];
-    newDetailVc.news_url = model.news_url;
+    newDetailVc.model = model;
  
  
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;

@@ -11,6 +11,7 @@
 #import "NewViewController.h"
 #import "PictureViewController.h"
 #import "PageViewController.h"
+#import "UMSocial.h"
 
 @interface AppDelegate ()
 
@@ -49,6 +50,11 @@
     
     
     NSLog(@"%@", NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES));
+    
+    
+    //友盟统计
+    [UMSocialData setAppKey:@"55fa1fa867e58e81eb0061cb"];
+    
     
     
     return YES;

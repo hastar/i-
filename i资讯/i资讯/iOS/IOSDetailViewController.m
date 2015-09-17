@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 hastar. All rights reserved.
 //
 
+#import "UMSocial.h"
 #import <WebKit/WebKit.h>
 #import "IOSDetailViewController.h"
 
@@ -22,6 +23,7 @@
 
 //加载进度条
 @property (nonatomic, strong) UIProgressView *progressView;
+
 
 @end
 
@@ -89,12 +91,11 @@
     
     
     //加载webView数据
-    NSURL *url = [NSURL URLWithString:self.news_url];
+    NSURL *url = [NSURL URLWithString:self.model.url];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.wkView loadRequest:request];
     [self.wkView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
 
-    
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -130,6 +131,13 @@
 - (void)share:(id)sender
 {
     NSLog(@"分享");
+    NSString *shareString = [NSString stringWithFormat:@"%@----分享来自i客之家 iPhone客户端\n%@", self.model.desc,self.model.url];
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:@"55fa1fa867e58e81eb0061cb"
+                                      shareText:shareString
+                                     shareImage:nil
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToTencent, UMShareToDouban, UMShareToRenren, nil]
+                                       delegate:nil];
 }
 
 #pragma mark 视图即将出现

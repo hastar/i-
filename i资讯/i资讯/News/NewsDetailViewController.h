@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NewModel.h"
 
 @interface NewsDetailViewController : UIViewController
 
-@property (nonatomic, copy) NSString *news_url;
+@property (nonatomic, strong) NewModel *model;
 
 @end
