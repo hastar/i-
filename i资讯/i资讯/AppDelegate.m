@@ -51,6 +51,8 @@
     
     NSLog(@"%@", NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES));
     
+    NSLog(@"zhei shi test");
+    
     
     //友盟统计
     [UMSocialData setAppKey:@"55fa1fa867e58e81eb0061cb"];
